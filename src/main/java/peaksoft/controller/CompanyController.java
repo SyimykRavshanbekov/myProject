@@ -3,10 +3,12 @@ package peaksoft.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.model.Company;
 import peaksoft.service.CompanyService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -34,7 +36,11 @@ public class CompanyController {
     }
 
     @PostMapping("/saveCompany")
-    public String saveCompany(@ModelAttribute("company") Company company) {
+    public String saveCompany(@ModelAttribute("company") @Valid Company company, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "/company/addCompany";
+        }
+
         service.addCompany(company);
         return "redirect:/getAllCompanies";
     }
@@ -47,7 +53,10 @@ public class CompanyController {
     }
 
     @PostMapping("/updateCompany")
-    public String saveUpdateCompany(@ModelAttribute("company") Company company) {
+    public String saveUpdateCompany(@ModelAttribute("company") @Valid Company company, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "/company/updateCompany";
+        }
         service.updateCompany(company);
         return "redirect:/getAllCompanies";
     }
