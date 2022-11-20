@@ -11,7 +11,7 @@
 <form
         th:action="@{/{companyId}/{id}/saveUpdateCourse(id=${course.id}, companyId=${companyId})}"
         th:object="${course}"
-        method="post">
+>
 
     <input type="hidden" name="id" th:field="*{id}">
     <input type="text" name="courseName" th:field="*{courseName}" placeholder="Course Name">

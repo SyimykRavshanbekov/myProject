@@ -15,14 +15,17 @@
             action="#"
             th:action="@{/{id}/saveCourse(id=${companyId})}"
             th:object="${course}"
-            method="POST">
+            method="post">
 
         <input type="hidden" name="id" th:field="*{id}">
-        <input type="text" name="companyName" th:field="*{courseName}" placeholder="Course Name">
+        <input type="text" th:field="*{courseName}" placeholder="Course Name">
+        <div style="color: red" th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}">Name Error</div>
         <br><br>
-        <input type="text" name="description" th:field="*{description}" placeholder="Description">
+        <input type="text" th:field="*{description}" placeholder="Description">
+        <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
         <br><br>
-        <input type="text" name="duration" th:field="*{duration}" placeholder="Duration">
+        <input type="number" name="duration" th:field="*{duration}" placeholder="Duration">
+        <div style="color: red" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}">Duration Error</div>
         <br><br>
         <input type="submit" value="Add">
     </form>
